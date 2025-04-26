@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llmAgentOrch-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: llmAgentOrch
+  template:
+    metadata:
+      labels:
+        app: llmAgentOrch
+    spec:
+      containers:
+      - name: llmAgentOrch-container
+        image: your-docker-repo/llmAgentOrch:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: llmAgentOrch-config
